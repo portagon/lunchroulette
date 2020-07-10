@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## --- IN CONSTRUCTION ---
 
-Things you may want to cover:
+This is a small app to mix and match collegues for lunch to get to know various people within the organitzation.
 
-* Ruby version
+The goal is to strengthen the Work@CrowdDesk even further.
 
-* System dependencies
+So, anybody can sign up for a specific day. Then you get randomly matched to 3 colleagues to have lunch. To avoid the endless discussions about where to have the perfect meal, the designated restaurant gets supplied to the group.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+> Developed with :heart: by CrowdDesk
