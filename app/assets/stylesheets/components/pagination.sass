@@ -1,0 +1,29 @@
+.pagination
+  text-align: center
+  padding: 0.3em
+  cursor: default
+  a, span, em
+    padding: 0.2em 0.5em
+  .disabled
+    color: #aaaaaa
+  .current
+    font-style: normal
+    font-weight: bold
+    color: $green
+  a
+    @include border
+    color: $blue
+    text-decoration: none
+    &:hover, &:focus
+      border-color: $blue
+      background: $blue
+      color: white
+  .page_info
+    color: $blue
+    padding-top: 0.8em
+  .previous_page, .next_page
+    border-width: 2px
+  .previous_page
+    margin-right: 1em
+  .next_page
+    margin-left: 1em

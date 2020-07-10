@@ -1,0 +1,31 @@
+table
+  width: 100%
+
+  td, th
+    padding: 10px 10px
+    min-width: 80px
+
+    &:first-child
+      padding-left: 0
+
+    &:last-child
+      padding-right: 0
+      text-align: right
+
+      a
+        text-align: right
+
+
+th
+  @include small-text
+  @include border-bottom
+  // background: $light-grey
+
+td
+  a
+    display: block
+    border: none
+    font-weight: bold
+
+.foot-border-top
+  border-top: 2px solid $blue

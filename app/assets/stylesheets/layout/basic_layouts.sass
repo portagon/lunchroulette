@@ -1,0 +1,93 @@
+.flex
+  display: flex
+  margin: 0 -15px
+
+  &.vertical-center
+    align-items: center
+
+  &.at-top
+    align-items: flex-start
+
+  &.space-around
+    justify-content: space-around
+
+  &.right
+    justify-content: flex-end
+
+  &.p0
+    padding: 0
+
+  > *
+    padding: 0 15px
+
+  .w16
+    flex-basis: 16.66%
+
+  .w20
+    flex-basis: 20%
+
+  .w25
+    flex-basis: 25%
+
+  .w33
+    flex-basis: 33.33%
+
+  .w40
+    flex-basis: 40%
+
+  .w50
+    flex-basis: 50%
+
+  .w66
+    flex-basis: 66.66%
+
+  .w75
+    flex-basis: 75%
+
+  .right
+    text-align: right
+
+.box
+  padding: 30px
+  @include border
+
+  &.notice
+    color: $green
+
+  &.error
+    color: $red
+
+.info-box
+  @include border
+  padding: 3px
+  background-color: $green
+  color: white
+  font-size: smaller
+
+.box-row
+  margin: 0 -30px
+  padding: 30px
+
+  &:first-child
+    margin-top: -30px
+
+  &:last-child
+    margin-bottom: -30px
+
+  & + .box-row
+    border-top: 1px solid #ddd
+
+.border-bottom + .border-bottom
+  border-top: 2px solid #eee
+
+.margin + *
+  margin-top: 30px
+
+.margin-bottom
+  margin-bottom: 30px
+
+.margin-top
+  margin-top: 30px
+
+.margin-top-small
+  margin-top: 15px

@@ -1,0 +1,70 @@
+select, input, textarea
+  width: 100%
+  -webkit-appearance: none
+  border: 1px solid #ddd
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+  background: white
+  padding: 10px
+  border-radius: 3px
+
+  &[disabled]
+    @include disable
+
+::placeholder
+  color: #ccc
+
+input[type=date]::-webkit-inner-spin-button
+  -webkit-appearance: none
+  display: none
+
+label:not(.button), .label
+  @include light-blue
+  text-transform: uppercase
+  font-size: 14px
+  font-weight: bold
+
+input[type=file]
+  display: none
+
+// .button-file__button
+//   position: relative
+//   overflow: hidden
+//   align-self: center
+
+// .button-file__input
+//   display: none
+//   // opacity: 0
+
+// .button-file__file-name
+//   display: flex
+//   align-items: center
+//   margin: 0 0.5rem
+//   color: grey
+
+
+// .button-file
+//   display: inline-flex
+//   align-self: flex-end
+
+.form-divider-text
+  color: #7a8c99
+  font-size: 14px
+  font-weight: bold
+
+.disabled-form
+  @include disable
+
+textarea
+  height: 100px
+
+form
+  .inside-input-field
+    float: right
+    top: 36px
+    right: 15px
+    position: relative
+    z-index: 2
+
+.textarea-h-auto
+  textarea
+    height: auto

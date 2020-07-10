@@ -1,0 +1,73 @@
+*
+  box-sizing: border-box
+
+html, body
+  min-height: 100%
+
+body
+  background: linear-gradient(45deg, #0c3451 0%, #3c73a8 100%)
+  background-attachment: fixed
+  display: flex
+  min-height: 100vh
+
+  .page
+    margin: 100px auto
+    width: 1300px
+    background: white
+    border-radius: 5px
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+    overflow: hidden
+
+  &.narrow .page
+    margin: auto
+    width: 600px
+
+  @media only (max-width: 1200px)
+    &:not(.narrow)
+      background: none
+
+      .page
+        margin: 0
+        width: 100%
+        border-radius: 0
+        box-shadow: none
+
+body, select, input, textarea
+  color: #0c3451
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif
+  font-size: 16px
+  line-height: 1.5em
+
+strong
+  font-weight: bold
+
+a
+  color: #0c3451
+  text-decoration: none
+  border-bottom: 2px solid #0c3451
+
+h1
+  font-size: 26px
+  font-weight: 600
+
+h2
+  font-size: 20px
+  font-weight: 600
+
+h3
+  font-weight: bold
+
+.content
+  padding: 50px
+
+.flash
+  background: #1dd670
+  color: white
+  padding: 10px 15px
+  border-radius: 3px
+
+  &.error
+    background: #f39834
+
+.error
+  color: #ff6b6b

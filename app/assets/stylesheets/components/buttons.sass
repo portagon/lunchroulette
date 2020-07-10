@@ -1,0 +1,30 @@
+input[type=submit], button, .button
+  display: inline-block
+  text-align: center
+  font-weight: 600
+  width: auto
+  text-decoration: none
+  background-color: $light-grey
+  padding: 10px 15px
+  border-radius: 3px
+  border: none
+  box-shadow: 0 1px 1px transparentize(darken($light-grey, 20%), 0.2)
+  cursor: pointer
+  min-width: 100px
+  line-height: inherit
+
+  &.primary
+    color: white
+    background-color: $green
+    box-shadow: 0 1px 1px transparentize(darken($green, 20%), 0.2)
+
+  i
+    margin-right: 10px
+
+.button-row
+  * + *
+    margin-left: 10px
+
+.button-close
+  margin-top: 10px !important
+  margin-bottom: 20px
