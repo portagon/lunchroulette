@@ -26,9 +26,9 @@ time, mark, audio, video {
 }
 
 /* make sure to set some focus styles for accessibility */
-:focus {
+/* :focus {
     outline: 0;
-}
+} */
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,

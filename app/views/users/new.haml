@@ -1,0 +1,8 @@
+= form_with model: @user, html: { class: 'margin' } do |f|
+  .margin
+    = f.label :email
+    = f.text_field :email, placeholder: 'yourname@crowddesk.de', autofocus: true
+    = f.render_errors :email
+
+  .margin
+    = f.submit 'Login', class: 'primary button-w100'
