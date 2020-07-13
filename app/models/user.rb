@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :groups, foreign_key: 'leader'
+  has_many :lunches
 
   validates :email, presence: true, reduce: true, format: {
     with: /\A\S+@crowddesk\.de\z/,
