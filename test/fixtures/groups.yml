@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: 
+  restaurant: MyString
+  date: 2020-07-13
+
+two:
+  user: 
+  restaurant: MyString
+  date: 2020-07-13

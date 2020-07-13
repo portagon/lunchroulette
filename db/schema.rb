@@ -10,12 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# View illustrated: https://dbdiagram.io/d/5f0c0efb0425da461f049533
-
-ActiveRecord::Schema.define(version: 2020_07_13_080809) do
+ActiveRecord::Schema.define(version: 2020_07_13_084507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "groups", force: :cascade do |t|
+    t.bigint "leader_id"
+    t.string "restaurant"
+    t.date "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["leader_id"], name: "index_groups_on_leader_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
