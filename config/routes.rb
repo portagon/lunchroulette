@@ -5,5 +5,5 @@ Rails.application.routes.draw do
     get 'login', on: :member
   end
 
-  resources :lunches, only: [:create]
+  resources :lunches, only: [:create, :destroy]
 end

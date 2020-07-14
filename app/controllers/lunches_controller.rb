@@ -11,4 +11,12 @@ class LunchesController < ApplicationController
 
     redirect_to root_path(date: date)
   end
+
+  def destroy
+    lunch = @current_user.lunches.find(params[:id])
+    date = lunch.date
+
+    lunch.destroy
+    redirect_to root_path(date: date)
+  end
 end
