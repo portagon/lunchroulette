@@ -10,9 +10,8 @@ class UsersController < ApplicationController
     if @user.valid?
       UserMailer.login_mail(@user).deliver_later
       flash.now[:notice] = 'We\'ve sent you a login link, please check your email inbox'
-    else
-      render :new
     end
+    render :new
   end
 
   def login
