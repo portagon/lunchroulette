@@ -1,31 +1,47 @@
+// table is special for the roulette compared to Desks
+
 table
   width: 100%
+  border-spacing: 0
 
   td, th
-    padding: 10px 10px
-    min-width: 80px
+    padding: 10px
+    text-align: left
+    background-color: #f7f7f7
 
-    &:first-child
-      padding-left: 0
-
-    &:last-child
-      padding-right: 0
+    &.right
       text-align: right
 
-      a
-        text-align: right
+  th
+    font-weight: bold
+    background-color: #0c3451
+    color: white
 
+    &:first-child
+      border-top-left-radius: 3px
 
-th
-  @include small-text
-  @include border-bottom
-  // background: $light-grey
+    &:last-child
+      border-top-right-radius: 3px
+
+tr
+  + tr td
+    border-top: 2px solid white
 
 td
-  a
-    display: block
-    border: none
-    font-weight: bold
+  + .mini
+    width: 5%
 
-.foot-border-top
-  border-top: 2px solid $blue
+  + .smaller
+    width: 45%
+
+  + .half
+    width: 50%
+
+.status
+  color: white
+  background-color: #f39834
+  padding: 5px 15px
+  border-radius: 15px
+
+  &.confirmed
+    background-color: #1dd670

@@ -6,4 +6,8 @@ class User < ApplicationRecord
     with: /\A\S+@crowddesk\.de\z/,
     message: "is not a valid CrowdDesk email address"
   }
+
+  def name
+    email.split('@').first.capitalize
+  end
 end

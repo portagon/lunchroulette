@@ -1,1 +1,35 @@
-%h2 Lunch#Index y'all!
+= form_with method: :get, class: 'margin' do
+  .small-margin
+    = label_tag :date
+    = date_field_tag :date, @date, required: true, onchange: 'this.form.submit()'
+
+- if @can_register
+  .margin
+    = link_to 'Register for lunch now!', lunches_path(date: @date), method: :post, class: 'button primary button-w100'
+- elsif @current_user.lunches.on(@date).any?
+  %h2.green You already booked a lunch for #{@date}!
+
+.margin
+  - if @date.future?
+    You will get more information at #{@date - 1.day} at 18:00.
+
+%br
+
+%h2 Who else is playin the roulette for #{@date}:
+
+%br
+
+.tcenter
+  %table.margin
+    %tr
+      %th.mini
+      %th.smaller Name
+      %th.half Status
+
+    - @other_lunches.each do |lunch|
+      %tr
+        - count = 0
+        %td.mini= count += 1
+        %td.smaller= lunch.user.name
+        %td.half
+          %span.status{class: lunch&.confirmed? && 'confirmed'}= lunch.status
