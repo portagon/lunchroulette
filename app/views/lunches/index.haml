@@ -12,12 +12,34 @@
   %h2.dinline.p0.green You already booked a lunch for #{@date}!
   = link_to 'Cancel', lunch_path(@current_user.lunches.on(@date).first), method: :delete
 
+  - if @date == Date.today
+    .card
+      %h3 Your Lunch Group
+      %br
+      .flex
+        .w50
+          %span.tstrong
+            Restaurant:
+          #{@current_user.lunches.on(@date).first.group.restaurant}
+          %br
+          %span.tstrong
+            Time:
+          12:00
+
+        .w50
+          %ul
+            - @current_user.lunches.on(@date).first.group.lunches.each do |lunch|
+              %li
+                = lunch.user.name
+                - if lunch.user == @current_user.lunches.on(@date).first.group.leader
+                  (Teamlead)
+
 - if @day_ok
 
   .margin
     - if @date.future?
       You will get more information at #{@date - 1.day} at 18:00.
-    - else @date.today? && @same_day_ok
+    - else @date.today? && @can_register
       You can still sign up for today until 11:00!
 
   %br
