@@ -81,4 +81,22 @@ class GroupTest < ActiveSupport::TestCase
 
     basic_assertions
   end
+
+  test '11 users get assigned to 3 groups' do
+    single_test_setup(11)
+    Group.create_all_groups!
+
+    group_counts = Group.all.map { |g| g.lunches.count }
+
+    groups_with3 = group_counts.count(3)
+    groups_with4 = group_counts.count(4)
+    groups_with5 = group_counts.count(5)
+    groups_with6 = group_counts.count(6)
+    assert_equal 1, groups_with3
+    assert_equal 2, groups_with4
+    assert_equal 0, groups_with5
+    assert_equal 0, groups_with6
+
+    basic_assertions
+  end
 end

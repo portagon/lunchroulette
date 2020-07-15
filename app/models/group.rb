@@ -1,5 +1,6 @@
 class Group < ApplicationRecord
   PERSONS_PER_GROUP = 4
+  MIN_PERSONS_PER_GROUP = 3
 
   belongs_to :leader, class_name: 'User', optional: true
   has_many :lunches
@@ -11,6 +12,7 @@ class Group < ApplicationRecord
     date = Date.today
     lunches = Lunch.on(date)
     groups_count = lunches.count / PERSONS_PER_GROUP
+    groups_count += 1 if lunches.count % PERSONS_PER_GROUP >= MIN_PERSONS_PER_GROUP
     groups = (1..groups_count).map { Group.new(date: date) }
     assign_group_sizes(lunches, groups)
   end
@@ -34,6 +36,12 @@ class Group < ApplicationRecord
     if lunches.count == 6
       groups_with6 = groups
       send_groups(lunches, groups_with6, 6)
+    elsif lunches.count % PERSONS_PER_GROUP >= MIN_PERSONS_PER_GROUP
+      groups_with3 = [groups.pop]
+      groups_with4 = groups
+
+      send_groups(lunches, groups_with3, 3)
+      send_groups(lunches, groups_with4, 4)
     else
       groups_with5_count = lunches.count % PERSONS_PER_GROUP
       groups_with5 = groups.pop(groups_with5_count)
