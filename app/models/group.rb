@@ -1,6 +1,9 @@
 class Group < ApplicationRecord
   PERSONS_PER_GROUP = 4
   MIN_PERSONS_PER_GROUP = 3
+  RESTAURANTS = [
+    'Saopres', 'Pho Ngon', 'Lam Freres', 'Good Guys', 'Der Fette Bulle', 'eatDoori', 'Yuyumi', 'trinitii', 'Mr. Lee', 'Africa Queen', 'Merkez Döner', 'Toh Tong', 'Vita Vera', 'MoschMosch', "L'Osteria", 'Falafel 1818', 'Seoulfood', 'Sarajevo'
+  ].freeze
 
   belongs_to :leader, class_name: 'User', optional: true
   has_many :lunches
@@ -11,7 +14,7 @@ class Group < ApplicationRecord
   def self.create_all_groups!
     vars = initialize_groups_and_find_lunches
     groups = assign_group_sizes(vars[:lunches], vars[:groups])
-    send_groups(vars[:lunches], groups)
+    save_groups(vars[:lunches], groups)
   end
 
   def self.initialize_groups_and_find_lunches
@@ -46,7 +49,7 @@ class Group < ApplicationRecord
     groups
   end
 
-  def self.send_groups(lunches, groups)
+  def self.save_groups(lunches, groups)
     groups.each do |group|
       remaining_lunches = lunches.where(group: nil)
       group.create_group!(remaining_lunches)
@@ -57,6 +60,7 @@ class Group < ApplicationRecord
     save
     assign_lunches(remaining_lunches)
     update(leader: lunches.sample.user)
+    update(restaurant: RESTAURANTS.sample)
   end
 
   def assign_lunches(lunches)
