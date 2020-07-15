@@ -15,28 +15,39 @@ class Group < ApplicationRecord
     assign_group_sizes(lunches, groups)
   end
 
-  def create_group!(remaining_lunches)
+  def create_group!(remaining_lunches, count)
     save
-    assign_lunches(remaining_lunches)
+    assign_lunches(remaining_lunches, count)
     update(leader: lunches.sample.user)
   end
 
   private
 
-  def assign_lunches(lunches)
-    lunches.sample(4).map do |lunch|
+  def assign_lunches(lunches, count)
+    lunches.sample(count).map do |lunch|
       lunch.group = self
       lunch.save
     end
   end
 
   def self.assign_group_sizes(lunches, groups)
-    # groups_with_5_count = lunches.count % PERSONS_PER_GROUP
-    # groups_with_5 = groups.pop(groups_with_5_count)
-    # groups_with_4 = groups
+    if lunches.count == 6
+      groups_with6 = groups
+      send_groups(lunches, groups_with6, 6)
+    else
+      groups_with5_count = lunches.count % PERSONS_PER_GROUP
+      groups_with5 = groups.pop(groups_with5_count)
+      groups_with4 = groups
+
+      send_groups(lunches, groups_with5, 5)
+      send_groups(lunches, groups_with4, 4)
+    end
+  end
+
+  def self.send_groups(lunches, groups, count)
     groups.each do |group|
       remaining_lunches = lunches.where(group: nil)
-      group.create_group!(remaining_lunches)
+      group.create_group!(remaining_lunches, count)
     end
   end
 end
