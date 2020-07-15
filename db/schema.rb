@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# View illustrated: https://dbdiagram.io/d/5f0c0efb0425da461f049533
-
-ActiveRecord::Schema.define(version: 2020_07_13_105037) do
+ActiveRecord::Schema.define(version: 2020_07_15_075839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +21,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_105037) do
     t.date "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "size"
     t.index ["leader_id"], name: "index_groups_on_leader_id"
   end
 
