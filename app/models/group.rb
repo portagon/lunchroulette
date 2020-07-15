@@ -6,56 +6,52 @@ class Group < ApplicationRecord
   has_many :lunches
   has_many :users, through: :lunches
 
-  validates :date, presence: true
+  validates :date, :size, presence: true
 
   def self.create_all_groups!
     date = Date.today
     lunches = Lunch.on(date)
     groups_count = lunches.count / PERSONS_PER_GROUP
     groups_count += 1 if lunches.count % PERSONS_PER_GROUP >= MIN_PERSONS_PER_GROUP
-    groups = (1..groups_count).map { Group.new(date: date) }
+    groups = (1..groups_count).map { Group.new(date: date, size: PERSONS_PER_GROUP) }
     assign_group_sizes(lunches, groups)
   end
 
-  def create_group!(remaining_lunches, count)
+  def self.assign_group_sizes(lunches, groups)
+    rest_lunches = lunches.count % PERSONS_PER_GROUP
+
+    unless rest_lunches == 0
+      if rest_lunches >= MIN_PERSONS_PER_GROUP
+        groups.last.size = rest_lunches # small group
+      elsif rest_lunches < MIN_PERSONS_PER_GROUP && groups.count == 1
+        groups.last.size = lunches.count # one group with all lunches
+      elsif rest_lunches < MIN_PERSONS_PER_GROUP
+        big_groups_count = lunches.count % PERSONS_PER_GROUP
+        count = rest_lunches / big_groups_count + PERSONS_PER_GROUP
+        groups.sample(big_groups_count).each { |group| group.size = count }
+      end
+    end
+
+    send_groups(lunches, groups) # full groups
+  end
+
+  def self.send_groups(lunches, groups)
+    groups.each do |group|
+      remaining_lunches = lunches.where(group: nil)
+      group.create_group!(remaining_lunches)
+    end
+  end
+
+  def create_group!(remaining_lunches)
     save
-    assign_lunches(remaining_lunches, count)
+    assign_lunches(remaining_lunches)
     update(leader: lunches.sample.user)
   end
 
-  private
-
-  def assign_lunches(lunches, count)
-    lunches.sample(count).map do |lunch|
+  def assign_lunches(lunches)
+    lunches.sample(size).map do |lunch|
       lunch.group = self
       lunch.save
-    end
-  end
-
-  def self.assign_group_sizes(lunches, groups)
-    if lunches.count == 6
-      groups_with6 = groups
-      send_groups(lunches, groups_with6, 6)
-    elsif lunches.count % PERSONS_PER_GROUP >= MIN_PERSONS_PER_GROUP
-      groups_with3 = [groups.pop]
-      groups_with4 = groups
-
-      send_groups(lunches, groups_with3, 3)
-      send_groups(lunches, groups_with4, 4)
-    else
-      groups_with5_count = lunches.count % PERSONS_PER_GROUP
-      groups_with5 = groups.pop(groups_with5_count)
-      groups_with4 = groups
-
-      send_groups(lunches, groups_with5, 5)
-      send_groups(lunches, groups_with4, 4)
-    end
-  end
-
-  def self.send_groups(lunches, groups, count)
-    groups.each do |group|
-      remaining_lunches = lunches.where(group: nil)
-      group.create_group!(remaining_lunches, count)
     end
   end
 end

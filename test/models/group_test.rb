@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
+  def setup
+    @persons_per_group = Group::PERSONS_PER_GROUP
+    @min_persons = Group::MIN_PERSONS_PER_GROUP
+  end
+
   def single_test_setup(user_count)
     count = 1
     user_count.times do
@@ -18,84 +23,84 @@ class GroupTest < ActiveSupport::TestCase
     assert(Lunch.all.all? { |l| l.group.present? })
   end
 
-  test '16 users get assigned to a group' do
-    single_test_setup(16)
+  test 'Lunch.count % PERSONS_PER_GROUP == 0 get assigned to similar sized groups' do
+    single_test_setup(@persons_per_group * 4)
     Group.create_all_groups!
 
     group_counts = Group.all.map { |g| g.lunches.count }
 
-    groups_with4 = group_counts.count(4)
-    assert_equal 4, groups_with4
+    full_groups = group_counts.count(@persons_per_group)
+    assert_equal 4, full_groups
 
     Group.all.each do |g|
-      assert_equal 4, g.lunches.count
+      assert_equal @persons_per_group, g.lunches.count
     end
 
     basic_assertions
   end
 
-  test '13 users get assigned to 3 groups' do
-    single_test_setup(13)
+  # TODO: make this test past for different constants (e.g. 8 and 6)
+  test 'Lunch.count % PERSONS_PER_GROUP > 0 but smaller MIN_PERSONS_PER_GROUP get assigned correctly' do
+    persons = @persons_per_group * 3 + @min_persons - 1
+    single_test_setup(persons)
     Group.create_all_groups!
 
     group_counts = Group.all.map { |g| g.lunches.count }
+    rest_persons = persons % @persons_per_group
+    added_persons = Group.count / rest_persons
 
-    groups_with4 = group_counts.count(4)
-    groups_with5 = group_counts.count(5)
-    groups_with6 = group_counts.count(6)
-    assert_equal 2, groups_with4
-    assert_equal 1, groups_with5
-    assert_equal 0, groups_with6
+    full_groups = group_counts.count(@persons_per_group)
+    big_groups = group_counts.count(@persons_per_group + added_persons)
+
+    assert_equal rest_persons, big_groups
+    assert_equal Group.count - big_groups, full_groups
 
     basic_assertions
   end
 
-  test '14 users get assigned to 3 groups' do
-    single_test_setup(14)
+  test 'Lunch.count % PERSONS_PER_GROUP > 0 but smaller MIN_PERSONS_PER_GROUP get assigned correctly when Group.count == 1' do
+    persons = @persons_per_group + @min_persons - 1
+    single_test_setup(persons)
     Group.create_all_groups!
 
     group_counts = Group.all.map { |g| g.lunches.count }
+    rest_persons = persons % @persons_per_group
+    added_persons = Group.count / rest_persons
 
-    groups_with4 = group_counts.count(4)
-    groups_with5 = group_counts.count(5)
-    groups_with6 = group_counts.count(6)
-    assert_equal 1, groups_with4
-    assert_equal 2, groups_with5
-    assert_equal 0, groups_with6
+    full_groups = group_counts.count(@persons_per_group)
+    big_groups = group_counts.count(@persons_per_group + rest_persons)
+
+    assert_equal 1, big_groups
+    assert_equal 0, full_groups
 
     basic_assertions
   end
 
-  test '6 users get assigned to 1 group' do
-    single_test_setup(6)
+  test 'Lunch.count % PERSONS_PER_GROUP > 0 but >= MIN_PERSONS_PER_GROUP to X full groups and one small' do
+    persons = @persons_per_group + @min_persons
+    single_test_setup(persons)
     Group.create_all_groups!
 
     group_counts = Group.all.map { |g| g.lunches.count }
 
-    groups_with4 = group_counts.count(4)
-    groups_with5 = group_counts.count(5)
-    groups_with6 = group_counts.count(6)
-    assert_equal 0, groups_with4
-    assert_equal 0, groups_with5
-    assert_equal 1, groups_with6
+    full_groups = group_counts.count(@persons_per_group)
+    small_groups = group_counts.count(@min_persons)
+
+    assert_equal 1, small_groups
+    assert_equal Group.count - small_groups, full_groups
 
     basic_assertions
   end
 
-  test '11 users get assigned to 3 groups' do
-    single_test_setup(11)
+  test 'PERSONS_PER_GROUP > Lunch.count >= MIN_PERSONS_PER_GROUP get assigned to 1 group' do
+    persons = @min_persons
+    single_test_setup(persons)
     Group.create_all_groups!
 
     group_counts = Group.all.map { |g| g.lunches.count }
 
-    groups_with3 = group_counts.count(3)
-    groups_with4 = group_counts.count(4)
-    groups_with5 = group_counts.count(5)
-    groups_with6 = group_counts.count(6)
-    assert_equal 1, groups_with3
-    assert_equal 2, groups_with4
-    assert_equal 0, groups_with5
-    assert_equal 0, groups_with6
+    small_group = group_counts.count(persons)
+    assert_equal 1, small_group
 
     basic_assertions
   end
