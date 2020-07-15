@@ -1,19 +1,23 @@
 class LunchesController < ApplicationController
   def index
     @date = Date.parse(params[:date]) rescue Date.today
-    @same_day_ok = Time.now < Date.today.midday - 1.hour
-    @can_register = @current_user.lunches.new(date: @date).valid? && @same_day_ok
+    @day_ok = day_ok?
+    @can_register = @current_user.lunches.new(date: @date).valid? && day_ok?
     @other_lunches = Lunch.on(@date)
   end
 
   def create
-    @same_day_ok = Time.now < Date.today.midday - 1.hour
-    date = Date.parse(params[:date])
-    @lunch = @current_user.lunches.create(date: date)
+    @date = Date.parse(params[:date])
 
-    register_same_day if @same_day_ok && date == Date.today
+    if day_ok?
+      @lunch = @current_user.lunches.create(date: @date)
 
-    redirect_to root_path(date: date)
+      register_same_day if day_ok? && @date == Date.today
+    else
+      flash[:error] = 'Please only register for Tuesday or Thursday.'
+    end
+
+    redirect_to root_path(date: @date)
   end
 
   def destroy
@@ -27,6 +31,12 @@ class LunchesController < ApplicationController
   end
 
   private
+
+  def day_ok?
+    weekday = @date.strftime('%A') == 'Tuesday' || @date.strftime('%A') == 'Thursday'
+    day = Time.now < Date.today.midday - 1.hour || @date.future?
+    weekday && day
+  end
 
   def register_same_day
     return Group.create_all_groups!(date: Date.today) if Group.on(Date.today).count.zero?
