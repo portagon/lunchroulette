@@ -1,0 +1,32 @@
+Dein Lunch wurde bestätigt:
+%br
+%br
+Datum: #{@lunch.date}
+%br
+Uhrzeit: 12:00
+%br
+Restaurant Vorschlag: #{@lunch.group.restaurant}
+%br
+%br
+Deine Lunch Gruppe besteht aus:
+%br
+%br
+  - @lunch.group.lunches.each do |lunch|
+    = lunch.user.name
+    - if @lunch.group.leader == lunch.user
+      (Teamlead)
+    %br
+
+%br
+Trefft euch am besten um 12 Uhr beim Eingang zum Oval und lauft zusammen zum Restaurant.
+%br
+Gerne könnt ihr natürlich auch eine andere Uhrzeit ausmachen oder zu einem anderen Restaurant gehen.
+%br
+%br
+@#{@lunch.group.leader.name} (Teamlead):
+%br
+Bitte sorge dafür, dass alle aus der Lunch Gruppe Bescheid wissen, solltet ihr etwas anderes als die Vorschläge ausmachen. Gerne kannst du auch im Restaurant reservieren.
+%br
+%br
+= link_to 'Klicke hier', login_user_url(@lunch.user.to_sgid.to_s, redirect: lunches_url(date: @lunch.date, only_path: true))
+um deine Lunch Gruppe zu sehen.

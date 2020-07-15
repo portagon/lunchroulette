@@ -15,6 +15,7 @@ class Group < ApplicationRecord
     vars = initialize_groups_and_find_lunches
     groups = assign_group_sizes(vars[:lunches], vars[:groups])
     save_groups(vars[:lunches], groups)
+    Lunch.on(Date.tomorrow).map(&:confirm!) # confirmation mail
   end
 
   def self.initialize_groups_and_find_lunches

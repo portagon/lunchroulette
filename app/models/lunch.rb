@@ -10,4 +10,9 @@ class Lunch < ApplicationRecord
   def confirmed?
     status == 'confirmed'
   end
+
+  def confirm!
+    update(status: 'confirmed')
+    UserMailer.lunch_confirmed_mail(self).deliver_later
+  end
 end
