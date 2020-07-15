@@ -28,5 +28,5 @@ Gerne könnt ihr natürlich auch eine andere Uhrzeit ausmachen oder zu einem and
 Bitte sorge dafür, dass alle aus der Lunch Gruppe Bescheid wissen, solltet ihr etwas anderes als die Vorschläge ausmachen. Gerne kannst du auch im Restaurant reservieren.
 %br
 %br
-= link_to 'Klicke hier', login_user_url(@lunch.user.to_sgid.to_s, redirect: lunches_url(date: @lunch.date, only_path: true))
+= link_to 'Klicke hier', login_user_url(@lunch.user.to_sgid.to_s, redirect: root_url(date: @lunch.date, only_path: true))
 um deine Lunch Gruppe zu sehen.
