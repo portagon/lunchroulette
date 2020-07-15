@@ -13,7 +13,7 @@ class GroupTest < ActiveSupport::TestCase
       count += 1
     end
 
-    User.all.each { |u| Lunch.create(user: u, date: Date.today) }
+    User.all.each { |u| Lunch.create(user: u, date: Date.tomorrow) }
   end
 
   def basic_assertions
@@ -101,6 +101,16 @@ class GroupTest < ActiveSupport::TestCase
 
     small_group = group_counts.count(persons)
     assert_equal 1, small_group
+
+    basic_assertions
+  end
+
+  test 'Lunch.count < MIN_PERSONS_PER_GROUP get assigned to 1 group' do
+    persons = @min_persons - 1
+    single_test_setup(persons)
+    Group.create_all_groups!
+
+    assert_equal 1, Group.count
 
     basic_assertions
   end

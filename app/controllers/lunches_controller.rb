@@ -17,6 +17,8 @@ class LunchesController < ApplicationController
     date = lunch.date
 
     lunch.destroy
+
+    flash[:notice] = 'Your lunch was canceled.'
     redirect_to root_path(date: date)
   end
 end

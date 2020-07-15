@@ -18,9 +18,9 @@ class Group < ApplicationRecord
   end
 
   def self.initialize_groups_and_find_lunches
-    date = Date.today
+    date = Date.tomorrow
     lunches = Lunch.on(date)
-    groups_count = lunches.count / PERSONS_PER_GROUP
+    groups_count = lunches.count < MIN_PERSONS_PER_GROUP ? 1 : lunches.count / PERSONS_PER_GROUP
     groups_count += 1 if lunches.count % PERSONS_PER_GROUP >= MIN_PERSONS_PER_GROUP
     groups = (1..groups_count).map { Group.new(date: date, size: PERSONS_PER_GROUP) }
     { groups: groups, lunches: lunches }
@@ -65,8 +65,7 @@ class Group < ApplicationRecord
 
   def assign_lunches(lunches)
     lunches.sample(size).map do |lunch|
-      lunch.group = self
-      lunch.save
+      lunch.update(group: self)
     end
   end
 end
