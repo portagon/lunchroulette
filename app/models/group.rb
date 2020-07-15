@@ -11,15 +11,16 @@ class Group < ApplicationRecord
 
   validates :date, :size, presence: true
 
-  def self.create_all_groups!
-    vars = initialize_groups_and_find_lunches
+  scope :on, -> (date) { where(date: date) }
+
+  def self.create_all_groups!(date: Date.tomorrow)
+    vars = initialize_groups_and_find_lunches(date)
     groups = assign_group_sizes(vars[:lunches], vars[:groups])
     save_groups(vars[:lunches], groups)
-    Lunch.on(Date.tomorrow).map(&:confirm!) # confirmation mail
+    Lunch.on(date).map(&:confirm!) # confirmation mail
   end
 
-  def self.initialize_groups_and_find_lunches
-    date = Date.tomorrow
+  def self.initialize_groups_and_find_lunches(date)
     lunches = Lunch.on(date)
     groups_count = lunches.count < MIN_PERSONS_PER_GROUP ? 1 : lunches.count / PERSONS_PER_GROUP
     groups_count += 1 if lunches.count % PERSONS_PER_GROUP >= MIN_PERSONS_PER_GROUP

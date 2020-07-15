@@ -13,6 +13,8 @@
 .margin
   - if @date.future?
     You will get more information at #{@date - 1.day} at 18:00.
+  - else @date.today? && @same_day_ok
+    You can still sign up for today until 11:00!
 
 %br
 
