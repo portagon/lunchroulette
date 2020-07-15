@@ -22,9 +22,11 @@ class LunchesController < ApplicationController
 
   def destroy
     lunch = @current_user.lunches.find(params[:id])
+    group = lunch.group if lunch.group
     date = lunch.date
 
     lunch.destroy
+    send_updates(group) if group
 
     flash[:notice] = 'Your lunch was canceled.'
     redirect_to root_path(date: date)
@@ -43,6 +45,16 @@ class LunchesController < ApplicationController
 
     @lunch.add_single_to_group
     @lunch.group.lunches.each do |lunch|
+      UserMailer.lunch_confirmed_mail(lunch).deliver_later
+    end
+  end
+
+  def send_updates(group)
+    if @current_user == group.leader
+      group.update(leader: group.lunches.sample.user)
+    end
+
+    group.lunches.each do |lunch|
       UserMailer.lunch_confirmed_mail(lunch).deliver_later
     end
   end
