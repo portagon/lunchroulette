@@ -12,7 +12,10 @@ class Lunch < ApplicationRecord
   end
 
   def confirm!
+    puts "Lunch: #{self}"
     update(status: 'confirmed')
+    puts "Lunch: #{self}"
+    puts "user.email: #{self.user.email}\n"
     UserMailer.lunch_confirmed_mail(self).deliver_later
   end
 
