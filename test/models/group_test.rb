@@ -23,6 +23,16 @@ class GroupTest < ActiveSupport::TestCase
     assert(Lunch.all.all? { |l| l.group.present? })
   end
 
+  test 'No lunches registered, no groups created' do
+    single_test_setup(@persons_per_group * 4)
+    Lunch.destroy_all
+    Group.create_all_groups!
+
+    assert_equal 0, Lunch.count
+    assert_equal 0, Group.count
+  end
+
+
   test 'Lunch.count % PERSONS_PER_GROUP == 0 get assigned to similar sized groups' do
     single_test_setup(@persons_per_group * 4)
     Group.create_all_groups!

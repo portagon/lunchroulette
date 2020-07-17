@@ -15,15 +15,17 @@ class Group < ApplicationRecord
 
   def self.create_all_groups!(date: Date.tomorrow)
     vars = initialize_groups_and_find_lunches(date)
-    groups = assign_group_sizes(vars[:lunches], vars[:groups])
-    return if groups.empty?
+    return if vars[:lunches].to_a.empty? # escape if no lunch is registered for the day
 
+    groups = assign_group_sizes(vars[:lunches], vars[:groups])
     save_groups(vars[:lunches], groups)
     Lunch.on(date).map(&:confirm!) # confirmation mail
   end
 
   def self.initialize_groups_and_find_lunches(date)
     lunches = Lunch.on(date)
+    return { lunches: lunches } if lunches.to_a.empty? # escape if no lunch is registered for the day
+
     groups_count = lunches.count < MIN_PERSONS_PER_GROUP ? 1 : lunches.count / PERSONS_PER_GROUP
     groups_count += 1 if lunches.count % PERSONS_PER_GROUP >= MIN_PERSONS_PER_GROUP
     groups = (1..groups_count).map { Group.new(date: date, size: PERSONS_PER_GROUP) }
