@@ -16,6 +16,8 @@ class Group < ApplicationRecord
   def self.create_all_groups!(date: Date.tomorrow)
     vars = initialize_groups_and_find_lunches(date)
     groups = assign_group_sizes(vars[:lunches], vars[:groups])
+    return if groups.empty?
+
     save_groups(vars[:lunches], groups)
     Lunch.on(date).map(&:confirm!) # confirmation mail
   end
