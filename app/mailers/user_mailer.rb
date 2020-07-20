@@ -8,8 +8,4 @@ class UserMailer < ApplicationMailer
     @lunch = lunch
     mail(to: @lunch.user.email, subject: "Your lunch on #{@lunch.date} was confirmed!")
   end
-
-  def send_kevin
-    mail(to: 'liebholz@crowddesk.de', subject: 'from send_kevin', body: 'you got it man!')
-  end
 end

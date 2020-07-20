@@ -14,31 +14,13 @@ class Group < ApplicationRecord
   scope :on, -> (date) { where(date: date) }
 
   def self.create_all_groups!(date: Date.tomorrow)
-    puts "\n\nOwn output here...\n"
-    puts "Rails.env: #{Rails.env}\n"
-    puts "lunches: #{Lunch.on(date)}"
-    puts "Lunches count: #{Lunch.on(date).count}\n"
-
     vars = initialize_groups_and_find_lunches(date)
-    puts "vars[:lunches]: #{vars[:lunches]}"
-    puts "vars[:groups]: #{vars[:groups]}\n"
-
     return if vars[:lunches].to_a.empty? # escape if no lunch is registered for the day
 
-    groups = assign_group_sizes(vars[:lunches], vars[:groups])
+    groups = assign_group_sizes(vars[:lunches], vars[:groups]) # as Lunches % PERSONS_PER_GROUP might not be 0, group sizes vary
     save_groups(vars[:lunches], groups)
 
-    puts "groups: #{Group.on(date)}"
-    puts "groups count: #{Group.on(date).to_a}"
-    puts "lunches: #{Group.on(date).first.lunches}"
-    puts "lunches count: #{Group.on(date).first.lunches.count}"
-    puts "user: #{Group.on(date).first.lunches.first.user}\n"
-
-    puts "Now all Lunches get confirmed...\n"
     Lunch.on(date).map(&:confirm!) # confirmation mail
-    puts "Lunches are done confirming!"
-
-    puts "\n\nOwn output ends here!\n\n"
   end
 
   def self.initialize_groups_and_find_lunches(date)
@@ -63,7 +45,7 @@ class Group < ApplicationRecord
       return handle_big_groups(lunches, rest_lunches, groups)
     end
 
-    groups # all groups incl. full ones
+    groups # all groups incl. those with exactly PERSONS_PER_GROUP,
   end
 
   def self.handle_big_groups(lunches, rest_lunches, groups)
