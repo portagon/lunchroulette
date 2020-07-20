@@ -49,6 +49,7 @@
   %br
 
   .tcenter
+    - count = 0
     %table.margin
       %tr
         %th.mini
@@ -57,7 +58,6 @@
 
       - @other_lunches.each do |lunch|
         %tr
-          - count = 0
           %td.mini= count += 1
           %td.smaller
             = lunch.user.name
