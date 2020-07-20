@@ -8,8 +8,10 @@ gem 'font-awesome-sass', '~> 5.12.0'
 gem 'hamlit'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 4.1'
 gem 'postmark-rails'
+gem 'pry'
+gem 'pry-rails'
+gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'sass-rails', '>= 6'
 gem 'sidekiq'
@@ -19,7 +21,6 @@ gem 'webpacker', '~> 4.0'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-byebug'
-  gem 'pry-rails'
 end
 
 group :development do
