@@ -2,7 +2,7 @@
   .small-margin
     = label_tag :date
     = date_field_tag :date, @date, required: true, onchange: 'this.form.submit()'
-    Your can only register for Tuesday or Thursday
+    You can only register for Tuesdays and Thursdays
 
 - if @can_register
   .margin
