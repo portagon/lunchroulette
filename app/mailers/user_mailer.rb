@@ -10,7 +10,6 @@ class UserMailer < ApplicationMailer
   end
 
   def send_kevin
-    @user = User.find_by(email: 'liebholz@crowddesk.de')
-    mail(to: @user.email, subject: 'from send_kevin', body: 'you got it man!')
+    mail(to: 'liebholz@crowddesk.de', subject: 'from send_kevin', body: 'you got it man!')
   end
 end
