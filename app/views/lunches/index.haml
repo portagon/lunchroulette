@@ -12,7 +12,7 @@
   %h2.dinline.p0.green You already booked a lunch for #{@date}!
   = link_to 'Cancel', lunch_path(@current_user.lunches.on(@date).first), method: :delete
 
-  - if @date == Date.today
+  - if @current_user.lunches.on(@date).first.group.present?
     .card
       %h3 Your Lunch Group
       %br
