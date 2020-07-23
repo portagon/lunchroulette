@@ -2,7 +2,7 @@ class Group < ApplicationRecord
   PERSONS_PER_GROUP = 4
   MIN_PERSONS_PER_GROUP = 3
   RESTAURANTS = [
-    'Saopres', 'Pho Ngon', 'Lam Freres', 'Good Guys', 'Der Fette Bulle', 'eatDoori', 'Yuyumi', 'trinitii', 'Mr. Lee', 'Africa Queen', 'Merkez Döner', 'Toh Tong', 'Vita Vera', 'MoschMosch', "L'Osteria", 'Falafel 1818', 'Seoulfood', 'Sarajevo'
+    'Sapores', 'Pho Ngon', 'Lam Freres', 'Good Guys', 'Der Fette Bulle', 'eatDoori', 'Yuyumi', 'trinitii', 'Mr. Lee', 'Africa Queen', 'Merkez Döner', 'Toh Tong', 'Vita Vera', 'MoschMosch', "L'Osteria", 'Falafel 1818', 'Seoulfood', 'Sarajevo'
   ].freeze
 
   belongs_to :leader, class_name: 'User', optional: true
