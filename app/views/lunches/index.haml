@@ -1,7 +1,7 @@
 = form_with method: :get, class: 'margin' do
   .small-margin
     = label_tag :date
-    = date_field_tag :date, @date, required: true, onchange: 'this.form.submit()'
+    = date_field_tag :date, @date, required: true, value:@date, onchange: 'this.form.submit()'
     You can only register for Thursdays
 - if @can_register
   .margin
@@ -32,6 +32,8 @@
                 = lunch.user.name
                 - if lunch.user == @current_user.lunches.on(@date).first.group.leader
                   (Teamlead)
+
+
 
 - if @day_ok
 
