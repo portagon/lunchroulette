@@ -14,7 +14,7 @@ class LunchesController < ApplicationController
 
       register_same_day if day_ok? && @date == Date.today
     else
-      flash[:error] = 'Please only register for Tuesday or Thursday.'
+      flash[:error] = 'Please only register for Thursday.'
     end
 
     redirect_to root_path(date: @date)
@@ -35,7 +35,7 @@ class LunchesController < ApplicationController
   private
 
   def day_ok?
-    weekday = @date.strftime('%A') == 'Tuesday' || @date.strftime('%A') == 'Thursday'
+    weekday = @date.strftime('%A') == 'Thursday'
     day = Time.now < Date.today.midday - 1.hour || @date.future?
     weekday && day
   end

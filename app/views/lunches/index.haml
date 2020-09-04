@@ -2,11 +2,10 @@
   .small-margin
     = label_tag :date
     = date_field_tag :date, @date, required: true, onchange: 'this.form.submit()'
-    You can only register for Tuesdays and Thursdays
-
+    You can only register for Thursdays
 - if @can_register
   .margin
-    = link_to 'Register for lunch now!', lunches_path(date: @date), method: :post, class: 'button primary button-w100'
+    = link_to 'Register for lunch now!', lunches_path(date: @date),  method: :post, class: 'button primary button-w100'
 
 - elsif @current_user.lunches.on(@date).any?
   %h2.dinline.p0.green You already booked a lunch for #{@date}!
