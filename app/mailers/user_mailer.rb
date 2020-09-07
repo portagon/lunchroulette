@@ -11,7 +11,7 @@ class UserMailer < ApplicationMailer
 
   def reminder_mail(user)
     @user = user
-    if user.email="bergmann@crowddesk.de" || user.email="liebholz@crowddesk.de"
+    if user.email=="bergmann@crowddesk.de" || user.email=="liebholz@crowddesk.de"
       return mail(to: user.email, subject:"Sign up for tomorrows lunch roulette") unless user.lunches.on(Date.today.next_occurring(:thursday)).any?
     end
   end
