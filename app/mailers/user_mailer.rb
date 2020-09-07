@@ -12,7 +12,7 @@ class UserMailer < ApplicationMailer
   def reminder_mail(user)
     @user = user
     #check if user is not yet signed_up for next thursdays lunch
-    unless user.lunches.last.date == Date.today.next_occurring(:thursday)
+    unless user.lunches.on(Date.today.next_occurring(:thursday)).any?
     #only then send mail
       mail(to: user.email, subject:"Sign up for tomorrows lunch roulette")
     end
