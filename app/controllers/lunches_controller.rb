@@ -35,7 +35,7 @@ class LunchesController < ApplicationController
   private
 
   def day_ok?
-    weekday = @date.strftime('%A') == 'Thursday'
+    weekday = @date.thursday?
     day = Time.now < Date.today.midday - 1.hour || @date.future?
     weekday && day
   end
