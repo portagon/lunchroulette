@@ -4,7 +4,7 @@
 https://dbdiagram.io/d/5f0c0efb0425da461f049533
 
 
-## --- IN CONSTRUCTION ---
+## --- About ---
 
 This is a small app to mix and match collegues for lunch to get to know various people within the organitzation.
 
