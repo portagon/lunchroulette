@@ -11,6 +11,5 @@ class LunchTest < ActiveSupport::TestCase
   test "Lunches can be assigned to users and groups" do
     travel_to Date.today.next_occurring(:thursday)
     assert_not_nil(@user.lunches.on(@date).first.group.lunches.any? , "Not Working")
-    p @user.lunches.on(@date).first.group.lunches.first
   end
 end
