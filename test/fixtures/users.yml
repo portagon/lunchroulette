@@ -1,1 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+user_one:
+  email: "userone@crowddesk.de"
+
+user_two:
+  email: "usertwo@crowddesk.de"
+

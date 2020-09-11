@@ -2,7 +2,7 @@ class LunchesController < ApplicationController
   def index
     @date = Date.parse(params[:date]) rescue Date.today.next_occurring(:thursday)
     @day_ok = day_ok?
-    @can_register = @current_user.lunches.new(date: @date).valid? && day_ok?
+    @can_register = @current_user.lunches.new(date: @date).valid? && @day_ok
     @other_lunches = Lunch.on(@date)
   end
 
@@ -35,7 +35,7 @@ class LunchesController < ApplicationController
   private
 
   def day_ok?
-    weekday = @date.strftime('%A') == 'Thursday'
+    weekday = @date.thursday?
     day = Time.now < Date.today.midday - 1.hour || @date.future?
     weekday && day
   end
