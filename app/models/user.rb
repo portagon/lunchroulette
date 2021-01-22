@@ -10,4 +10,11 @@ class User < ApplicationRecord
   def name
     email.split('@').first.capitalize
   end
+
+  def send_reminder
+    return unless Time.now.tuesday?
+    return unless lunches.on(Date.today.next_occurring(:wednesday)).any?
+
+    UserMailer.reminder_mail(self).deliver_later
+  end
 end

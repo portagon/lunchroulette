@@ -32,7 +32,6 @@ class GroupTest < ActiveSupport::TestCase
     assert_equal 0, Group.count
   end
 
-
   test 'Lunch.count % PERSONS_PER_GROUP == 0 get assigned to similar sized groups' do
     single_test_setup(@persons_per_group * 4)
     Group.create_all_groups!

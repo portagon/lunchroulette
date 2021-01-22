@@ -11,7 +11,7 @@ class Group < ApplicationRecord
 
   validates :date, :size, presence: true
 
-  scope :on, -> (date) { where(date: date) }
+  scope :on, ->(date) { where(date: date) }
 
   def self.create_all_groups!(date: Date.tomorrow)
     vars = initialize_groups_and_find_lunches(date)

@@ -1,14 +1,14 @@
-Dein Lunch wurde bestätigt:
+Deine Coffee Break wurde bestätigt:
 %br
 %br
 Datum: #{@lunch.date}
 %br
-Uhrzeit: 12:00
+Uhrzeit: 15:00 - 15:15
 %br
-Restaurant Vorschlag: #{@lunch.group.restaurant}
+-# Restaurant Vorschlag: #{@lunch.group.restaurant}
 %br
 %br
-Deine Lunch Gruppe besteht aus:
+Deine Coffee Break Gruppe besteht aus:
 %br
 %br
   - @lunch.group.lunches.each do |lunch|
@@ -18,15 +18,17 @@ Deine Lunch Gruppe besteht aus:
     %br
 
 %br
-Trefft euch am besten um 12 Uhr beim Eingang zum Oval und lauft zusammen zum Restaurant.
+-# Trefft euch am besten um 12 Uhr beim Eingang zum Oval und lauft zusammen zum Restaurant.
 %br
-Gerne könnt ihr natürlich auch eine andere Uhrzeit ausmachen oder zu einem anderen Restaurant gehen.
+-# Gerne könnt ihr natürlich auch eine andere Uhrzeit ausmachen oder zu einem anderen Restaurant gehen.
+Gerne könnt ihr natürlich auch eine andere Uhrzeit ausmachen.
 %br
 %br
 @#{@lunch.group.leader.name} (Teamlead):
 %br
-Bitte sorge dafür, dass alle aus der Lunch Gruppe Bescheid wissen, solltet ihr etwas anderes als die Vorschläge ausmachen. Gerne kannst du auch im Restaurant reservieren.
+-# Bitte sorge dafür, dass alle aus der Lunch Gruppe Bescheid wissen, solltet ihr etwas anderes als die Vorschläge ausmachen. Gerne kannst du auch im Restaurant reservieren.
+Bitte erstelle einen Teams Termin und lade alle aus der Coffee Break ein.
 %br
 %br
 = link_to 'Klicke hier', login_user_url(@lunch.user.to_sgid.to_s, redirect: root_url(date: @lunch.date, only_path: true))
-um deine Lunch Gruppe zu sehen.
+um deine Coffee Break Gruppe zu sehen.

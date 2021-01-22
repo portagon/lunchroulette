@@ -1,7 +1,0 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-lunch_one:
-  status: "confirmed"
-  date: <%Date.today.next_occurring(:thursday)%>
-  user: user_one
-  group: group_one
-

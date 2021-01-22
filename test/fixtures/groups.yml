@@ -1,5 +1,0 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-group_one:
-  restaurant: "Italian place"
-  date: <%Date.today.next_occurring(:thursday)%>
-  size: 2
