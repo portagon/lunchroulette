@@ -5,7 +5,7 @@
     You can only register for Wednesdays
 - if @can_register
   .margin
-    = link_to 'Register for coffee now!', lunches_path(date: @date), method: :post, class: 'button primary button-w100'
+    = link_to 'Register for your virtual coffee now!', lunches_path(date: @date), method: :post, class: 'button primary button-w100'
 
 - elsif @current_user.lunches.on(@date).any?
   %h2.dinline.p0.green You already booked a lunch for #{@date}!
