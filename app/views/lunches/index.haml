@@ -13,7 +13,7 @@
 
   - if @current_user.lunches.on(@date).first.group.present?
     .card
-      %h3 Your Lunch Group
+      %h3 Your Virtuel Coffee Break Group
       %br
       .flex
         .w50
@@ -22,8 +22,7 @@
           #{@current_user.lunches.on(@date).first.group.restaurant}
           %br
           %span.tstrong
-            Time:
-          12:00
+            Time: 15:00 - 15:30
 
         .w50
           %ul
