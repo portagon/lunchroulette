@@ -3,7 +3,7 @@ class LunchesController < ApplicationController
     @date = Date.parse(params[:date]) rescue Date.today.next_occurring(:wednesday)
     @day_ok = day_ok?
     @can_register = @current_user.lunches.new(date: @date).valid? && @day_ok
-    @other_lunches = Lunch.on(@date)
+    @other_lunches = Lunch.on(@date).order(:created_at)
   end
 
   def create
