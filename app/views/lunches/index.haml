@@ -5,7 +5,7 @@
     Every Friday from 12:30 - 13:00
 - if @can_register
   .margin
-    = link_to 'Register for your (virtual) lunch now!', lunches_path(date: @date), method: :post, class: 'button primary button-w100'
+    = link_to 'Register for your (virtual) break now!', lunches_path(date: @date), method: :post, class: 'button primary button-w100'
 
 - elsif @current_user.lunches.on(@date).any?
   %h2.dinline.p0.green You already booked a break for #{@date}!

@@ -28,7 +28,7 @@ class LunchesController < ApplicationController
     lunch.destroy
     send_updates(group) if group
 
-    flash[:notice] = 'Your lunch was canceled.'
+    flash[:notice] = 'Your break was canceled.'
     redirect_to root_path(date: date)
   end
 
