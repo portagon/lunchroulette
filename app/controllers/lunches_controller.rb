@@ -1,6 +1,6 @@
 class LunchesController < ApplicationController
   def index
-    @date = Date.parse(params[:date]) rescue Date.today.next_occurring(:wednesday)
+    @date = Date.parse(params[:date]) rescue Date.today.next_occurring(:friday)
     @day_ok = day_ok?
     @can_register = @current_user.lunches.new(date: @date).valid? && @day_ok
     @other_lunches = Lunch.on(@date).order(:created_at)
@@ -14,7 +14,7 @@ class LunchesController < ApplicationController
 
       register_same_day if day_ok? && @date == Date.today
     else
-      flash[:error] = 'Please only register for Wednesdays.'
+      flash[:error] = 'Please only register for Fridays.'
     end
 
     redirect_to root_path(date: @date)
@@ -35,7 +35,7 @@ class LunchesController < ApplicationController
   private
 
   def day_ok?
-    weekday = @date.wednesday?
+    weekday = @date.friday?
     day = Time.now < Date.today.midday - 1.hour || @date.future?
     weekday && day
   end

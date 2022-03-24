@@ -9,7 +9,7 @@ class GroupTest < ActiveSupport::TestCase
   def single_test_setup(user_count)
     count = 1
     user_count.times do
-      User.create(email: "#{count}@crowddesk.de")
+      User.create(email: "#{count}@portagon.com")
       count += 1
     end
 

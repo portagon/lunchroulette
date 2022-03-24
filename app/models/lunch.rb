@@ -5,7 +5,7 @@ class Lunch < ApplicationRecord
   validates :status, :date, presence: true
   validates :date, uniqueness: { scope: :user }
 
-  scope :on, -> (date) { where(date: date) }
+  scope :on, ->(date) { where(date: date) }
 
   def confirmed?
     status == 'confirmed'
