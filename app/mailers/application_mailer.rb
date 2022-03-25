@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'admin@crowddesk.de'
+  default from: 'admin@portagon.com'
   layout 'mailer'
 end

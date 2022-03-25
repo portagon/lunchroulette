@@ -9,7 +9,7 @@ if !Rails.env.production?
   puts "Starting to create data..."
   i = 1
   30.times do
-    User.create(email: "#{i}@crowddesk.de")
+    User.create(email: "#{i}@portagon.net")
     i += 1
   end
 

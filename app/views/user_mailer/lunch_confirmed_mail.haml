@@ -1,14 +1,14 @@
-Deine virtuelle Coffee Break wurde bestätigt:
+Your (Virtual) Break was confirmed:
 %br
 %br
-Datum: #{@lunch.date}
+Date: #{@lunch.date}
 %br
-Uhrzeit: 15:00 - 15:30
+Time: 15:00 - 15:30
 %br
 -# Restaurant Vorschlag: #{@lunch.group.restaurant}
 %br
 %br
-Deine Coffee Break Gruppe besteht aus:
+Your Break Gruppe consists of:
 %br
 %br
   - @lunch.group.lunches.each do |lunch|
@@ -21,14 +21,14 @@ Deine Coffee Break Gruppe besteht aus:
 -# Trefft euch am besten um 12 Uhr beim Eingang zum Oval und lauft zusammen zum Restaurant.
 %br
 -# Gerne könnt ihr natürlich auch eine andere Uhrzeit ausmachen oder zu einem anderen Restaurant gehen.
-Gerne könnt ihr natürlich auch eine andere Uhrzeit ausmachen.
+Of course, you are free to schedule another time.
 %br
 %br
 @#{@lunch.group.leader.name} (Teamlead):
 %br
 -# Bitte sorge dafür, dass alle aus der Lunch Gruppe Bescheid wissen, solltet ihr etwas anderes als die Vorschläge ausmachen. Gerne kannst du auch im Restaurant reservieren.
-Bitte erstelle einen Teams Termin und lade alle aus der Coffee Break ein.
+Please create a Teams appointment and invite everybody from your Break.
 %br
 %br
-= link_to 'Klicke hier', login_user_url(@lunch.user.to_sgid.to_s, redirect: root_url(date: @lunch.date, only_path: true))
-um deine Coffee Break Gruppe zu sehen.
+= link_to 'Click here', login_user_url(@lunch.user.to_sgid.to_s, redirect: root_url(date: @lunch.date, only_path: true))
+to see your Break group.
