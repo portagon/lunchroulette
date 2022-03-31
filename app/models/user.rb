@@ -2,8 +2,10 @@ class User < ApplicationRecord
   has_many :groups, foreign_key: 'leader'
   has_many :lunches
 
+  ALLOWED_MAILS = /\A\S+@portagon\.com\z/.freeze
+
   validates :email, presence: true, reduce: true, format: {
-    with: /\A\S+@portagon\.com\z/,
+    with: ALLOWED_MAILS,
     message: 'is not a valid portagon email address'
   }
 
@@ -12,6 +14,7 @@ class User < ApplicationRecord
   end
 
   def send_reminder
+    return unless email.match?(ALLOWED_MAILS)
     return unless Time.now.tuesday?
     return if lunches.on(Date.today.next_occurring(:friday)).any?
 
