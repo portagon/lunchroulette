@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
   def send_reminder
     return unless email.match?(ALLOWED_MAILS)
-    return unless Time.now.tuesday?
+    return unless Time.now.thursday?
     return if lunches.on(Date.today.next_occurring(:friday)).any?
 
     UserMailer.reminder_mail(self).deliver_later
