@@ -1,6 +1,6 @@
 class Group < ApplicationRecord
-  PERSONS_PER_GROUP = 4
-  MIN_PERSONS_PER_GROUP = 3
+  PERSONS_PER_GROUP = 3
+  MIN_PERSONS_PER_GROUP = 2
   RESTAURANTS = [
     'Sapores', 'Pho Ngon', 'Lam Freres', 'Good Guys', 'Der Fette Bulle', 'eatDoori', 'Yuyumi', 'trinitii', 'Mr. Lee', 'Africa Queen', 'Merkez Döner', 'Toh Tong', 'Vita Vera', 'MoschMosch', "L'Osteria", 'Falafel 1818', 'Seoulfood', 'Sarajevo'
   ].freeze

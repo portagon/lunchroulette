@@ -50,18 +50,17 @@ class GroupTest < ActiveSupport::TestCase
 
   # TODO: make this test past for different constants (e.g. 8 and 6)
   test 'Lunch.count % PERSONS_PER_GROUP > 0 but smaller MIN_PERSONS_PER_GROUP get assigned correctly' do
-    persons = @persons_per_group * 3 + @min_persons - 1
+    overlap_persons = @min_persons - 1
+    persons = @persons_per_group * 3 + overlap_persons
     single_test_setup(persons)
     Group.create_all_groups!
 
     group_counts = Group.all.map { |g| g.lunches.count }
-    rest_persons = persons % @persons_per_group
-    added_persons = Group.count / rest_persons
 
     full_groups = group_counts.count(@persons_per_group)
-    big_groups = group_counts.count(@persons_per_group + added_persons)
+    big_groups = group_counts.count(@persons_per_group + overlap_persons)
 
-    assert_equal rest_persons, big_groups
+    assert_equal overlap_persons, big_groups
     assert_equal Group.count - big_groups, full_groups
 
     basic_assertions

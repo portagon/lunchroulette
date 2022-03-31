@@ -4,8 +4,8 @@ class UserMailerTest < ActionMailer::TestCase
   include Rails.application.routes.url_helpers
 
   def setup
-    @user1 = User.create(email: 'test@portagon.net')
-    @user2 = User.create(email: 'test2@portagon.net')
+    @user1 = User.create(email: 'test@portagon.com')
+    @user2 = User.create(email: 'test2@portagon.com')
 
     @lunch1 = Lunch.create(user: @user1, date: Date.tomorrow)
     @lunch2 = Lunch.create(user: @user2, date: Date.tomorrow)
