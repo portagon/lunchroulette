@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.0'
+ruby '2.7.6'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'font-awesome-sass', '~> 5.12.0'
@@ -12,7 +12,7 @@ gem 'postmark-rails'
 gem 'pry'
 gem 'pry-rails'
 gem 'puma', '~> 4.3'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'rails', '~> 6.0.5'
 gem 'sass-rails', '>= 6'
 gem 'sidekiq'
 gem 'turbolinks', '~> 5'
