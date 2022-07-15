@@ -5,13 +5,13 @@
     "@rails/actioncable": "^6.1.4",
     "@rails/activestorage": "^6.1.4",
     "@rails/ujs": "^6.1.4",
-    "@rails/webpacker": "5.3.0",
+    "@rails/webpacker": "5.4.3",
     "is-svg": "^4.2.2",
-    "ssri": "^8.0.1",
+    "ssri": "^9.0.1",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^4.9.3"
   }
 }
